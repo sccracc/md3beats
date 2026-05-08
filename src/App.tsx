@@ -2,7 +2,6 @@ import { ArrowUp } from "lucide-react";
 import { AnimatePresence, motion, type Transition, useReducedMotion } from "motion/react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Contact from "./components/Contact";
 import CursorGlow from "./components/CursorGlow";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -125,9 +124,8 @@ function RoutedApp() {
           >
             <Suspense fallback={<LoadingMark />}>
               <Routes location={location}>
-                <Route path="/" element={<Home onContactClick={() => navigate("/contact")} onSocialsClick={() => navigate("/socials")} />} />
+                <Route path="/" element={<Home onContactClick={() => navigate("/socials")} onSocialsClick={() => navigate("/socials")} />} />
                 <Route path="/news" element={<News />} />
-                <Route path="/contact" element={<Contact />} />
                 <Route path="/socials" element={<Socials />} />
                 <Route path="/admin" element={<AdminLogin />} />
                 <Route element={<ProtectedRoute />}>

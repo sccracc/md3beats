@@ -1,5 +1,6 @@
-import { Instagram, Music2, Twitter } from "lucide-react";
+import { Check, Copy, Instagram, Mail, Music2, Twitter } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import { useState } from "react";
 import AudioVisualizer from "./AudioVisualizer";
 
 const socials = [
@@ -26,8 +27,17 @@ const socials = [
   },
 ];
 
+const email = "manager@md3beats.com";
+
 export default function Socials() {
+  const [copied, setCopied] = useState(false);
   const reducedMotion = useReducedMotion();
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(email);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="relative min-h-screen px-5 pb-24 pt-32 md:px-12 md:pt-40 lg:px-16">
@@ -103,6 +113,35 @@ export default function Socials() {
         </motion.div>
 
         <div className="my-12 h-px w-full bg-gradient-to-r from-transparent via-electric-blue/40 to-transparent" />
+
+        <motion.aside
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.65, delay: reducedMotion ? 0 : 0.3 }}
+          whileHover={reducedMotion ? {} : { y: -2 }}
+          className="clean-panel kinetic-border relative mb-12 p-6 md:p-8"
+        >
+          <div className="mb-8 grid h-14 w-14 place-items-center rounded-2xl border border-electric-blue/25 bg-electric-blue/10 text-electric-blue">
+            <Mail size={24} aria-hidden="true" />
+          </div>
+
+          <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-white/36">Primary contact</p>
+          <div className="mt-4 flex flex-col gap-4 rounded-2xl border border-white/10 bg-brand-black/35 p-4">
+            <p className="break-all font-mono text-sm text-white/78 md:text-base">{email}</p>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="magnetic-card inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.24em] text-white/60 outline-none transition hover:border-electric-blue/40 hover:text-electric-blue focus-visible:ring-2 focus-visible:ring-electric-blue focus-visible:ring-offset-4 focus-visible:ring-offset-brand-black"
+            >
+              {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
+              {copied ? "Copied" : "Copy Email"}
+            </button>
+          </div>
+          <p className="mt-6 text-sm leading-7 text-white/54">
+            Send the context that matters: artist name, timeline, reference mood, and what the record needs to become.
+          </p>
+        </motion.aside>
+
         <div className="flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
           <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/42">All socials @MD3Beats</p>
           <div className="w-full max-w-[260px] opacity-70">

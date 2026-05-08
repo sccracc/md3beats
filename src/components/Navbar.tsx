@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 const tabs = [
   { label: "HOME", path: "/" },
   { label: "NEWS", path: "/news" },
-  { label: "CONTACT", path: "/contact" },
   { label: "SOCIALS", path: "/socials" },
 ];
 
